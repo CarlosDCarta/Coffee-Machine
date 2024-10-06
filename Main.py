@@ -6,20 +6,38 @@
 #***************************************************************************************************************************************
 import Coffee_Data
 
+#functions
+def checking_resources(coffee_ingred):
+   for item in coffee_ingred:
+        if coffee_ingred[item] > coffee_resources[item]:
+            print(f"sorry there is not enough {coffee_ingred[item]}")
+            return False
+        else:
+            return True
+#main program
 menu = Coffee_Data.MENU
 coffee_resources = Coffee_Data.resources
 
-#ask user for input and check it('report','coffee')
-user_input = input("What coffee would you like(Expresso, Latte, Cappuccino?): ").lower
-for key in menu:
-    if key == user_input:
-        print("coffee")
-#check if there is enough resoucres 
+while True:
+    #ask user for input and check it('report','coffee')
+    user_input = input("What coffee would you like(Espresso, Latte, Cappuccino?): ").lower()
+    # process secret word "off" for service of coffee machine. 
+    if user_input == "off":
+        quit()
+    if user_input == "report":
+        print(coffee_resources)
+    else:
+        for key in menu:
+            if key == user_input:
+                coffee_ingred = menu[key]["ingredients"]
+                coffee_price = menu[key]["cost"]
 
-#process user coins for transaction
+    #check if there is enough resoucres 
+    result_of_check = checking_resources(coffee_ingred)
+    
+    # process user coins for transaction
 
-#Process resources used
+    # Process resources used
 
-#repeat
+    # repeat
 
-#process secret word "off" for service of coffee machine. 
