@@ -36,14 +36,13 @@ coffee_resources = Coffee_Data.resources
 while True:
     #ask user for input and check it('report','coffee')
     user_input = input("What coffee would you like(Espresso, Latte, Cappuccino?): ").lower()
+    
     # process secret word "off" for service of coffee machine. 
     if user_input == "off":
         quit()
     elif user_input == "report":
         print(coffee_resources)
     else:
-        #process coins from user
-        process_coins()
         for key in menu:
             if key == user_input:
                 coffee_ingred = menu[key]["ingredients"]
@@ -52,6 +51,8 @@ while True:
     #Processing resoucres 
     result_of_check = checking_resources(coffee_ingred)
     if result_of_check != False:
+        #process coins from user
+        process_coins()
         updated_coffee_resources = using_resources(coffee_ingred)
     # process user coins for transaction
     
