@@ -27,11 +27,24 @@ def process_coins():
     total += int(input("How many dimes?: ")) * .10
     total += int(input("How many nickles: ")) * .05
     total += int(input("How many pennies?: ")) * .01
-    return total
+    if total < coffee_price:
+        print(f"Insuffeicent funds. The price is ${coffee_price}")
+        return False
+    else:
+        return total
+
+#counting and returning change.
+def return_change(total_coins, coffee_price, money_earned):
+    leftover = total_coins - coffee_price
+    leftover = round(leftover, 2)
+    print(f"Your change {leftover}")
+    money_earned += coffee_price
+    return money_earned
     
 #main program
 menu = Coffee_Data.MENU
 coffee_resources = Coffee_Data.resources
+money_earned = 0
 
 while True:
     #ask user for input and check it('report','coffee')
@@ -41,22 +54,20 @@ while True:
     if user_input == "off":
         quit()
     elif user_input == "report":
-        print(coffee_resources)
+        print(f"The remaining resources are {coffee_resources} and the machine holds ${money_earned}.")
     else:
         for key in menu:
             if key == user_input:
                 coffee_ingred = menu[key]["ingredients"]
                 coffee_price = menu[key]["cost"]
 
-    #Processing resoucres 
-    result_of_check = checking_resources(coffee_ingred)
-    if result_of_check != False:
-        #process coins from user
-        process_coins()
-        updated_coffee_resources = using_resources(coffee_ingred)
-    # process user coins for transaction
-    
-    # Process resources used
-
-    # repeat
-
+        #Processing resoucres 
+        result_of_check = checking_resources(coffee_ingred)
+        if result_of_check != False:
+            #process coins from user
+            total_coins = process_coins()
+            if total_coins != False:
+                money_earned = return_change(total_coins,coffee_price, money_earned)
+                updated_coffee_resources = using_resources(coffee_ingred)
+            # give user change back to user
+            
