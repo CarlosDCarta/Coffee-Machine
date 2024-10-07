@@ -14,6 +14,12 @@ def checking_resources(coffee_ingred):
             return False
         else:
             return True
+        
+def using_resources(coffee_ingred):
+    #updating the current stock level
+    for key, value in coffee_ingred.items():
+        coffee_resources[key] -= value
+    return coffee_resources
 #main program
 menu = Coffee_Data.MENU
 coffee_resources = Coffee_Data.resources
@@ -24,7 +30,7 @@ while True:
     # process secret word "off" for service of coffee machine. 
     if user_input == "off":
         quit()
-    if user_input == "report":
+    elif user_input == "report":
         print(coffee_resources)
     else:
         for key in menu:
@@ -34,7 +40,8 @@ while True:
 
     #check if there is enough resoucres 
     result_of_check = checking_resources(coffee_ingred)
-    
+    if result_of_check != False:
+        using_resources(coffee_ingred)
     # process user coins for transaction
 
     # Process resources used
