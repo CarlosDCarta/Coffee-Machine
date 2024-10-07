@@ -8,9 +8,9 @@ import Coffee_Data
 
 #functions
 def checking_resources(coffee_ingred):
-   for item in coffee_ingred:
-        if coffee_ingred[item] > coffee_resources[item]:
-            print(f"sorry there is not enough {coffee_ingred[item]}")
+   for key in coffee_ingred:
+        if coffee_ingred[key] > coffee_resources[key]:
+            print(f"sorry there is not enough {key}")
             return False
         else:
             return True
@@ -20,6 +20,15 @@ def using_resources(coffee_ingred):
     for key, value in coffee_ingred.items():
         coffee_resources[key] -= value
     return coffee_resources
+
+def process_coins():
+    print("Please enter coins.")
+    total = int(input("How many quarters: ")) * .25
+    total += int(input("How many dimes?: ")) * .10
+    total += int(input("How many nickles: ")) * .05
+    total += int(input("How many pennies?: ")) * .01
+    return total
+    
 #main program
 menu = Coffee_Data.MENU
 coffee_resources = Coffee_Data.resources
@@ -33,17 +42,19 @@ while True:
     elif user_input == "report":
         print(coffee_resources)
     else:
+        #process coins from user
+        process_coins()
         for key in menu:
             if key == user_input:
                 coffee_ingred = menu[key]["ingredients"]
                 coffee_price = menu[key]["cost"]
 
-    #check if there is enough resoucres 
+    #Processing resoucres 
     result_of_check = checking_resources(coffee_ingred)
     if result_of_check != False:
-        using_resources(coffee_ingred)
+        updated_coffee_resources = using_resources(coffee_ingred)
     # process user coins for transaction
-
+    
     # Process resources used
 
     # repeat
